@@ -3,12 +3,10 @@ const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const path = require("path");
 
-const app = express(); // Инициализация переменной app
+const app = express();
 
-// Добавление парсера для POST-запросов
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Настройка Nodemailer
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -17,12 +15,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Маршрут для главной страницы
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Маршрут для обработки формы
 app.post("/send-form", (req, res) => {
   const { name, email, message } = req.body;
 
@@ -47,7 +43,6 @@ app.post("/send-form", (req, res) => {
   });
 });
 
-// Запуск сервера
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
